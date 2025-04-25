@@ -41,6 +41,7 @@ export default class ApiService {
         const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
             headers: this.getHeader()
         })
+        console.log("USER PROFILE IS: " + response.data);
         return response.data
     }
 

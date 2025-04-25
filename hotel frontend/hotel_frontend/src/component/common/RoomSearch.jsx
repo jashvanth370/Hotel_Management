@@ -46,11 +46,11 @@ const RoomSearch = ({ handleSearchResult }) => {
 
       // Check if the response is successful
       if (response.statusCode === 200) {
-        if (response.roomDTOList.length === 0) {
+        if (response.roomList.length === 0) {
           showError('Room not currently available for this date range on the selected rom type.');
           return
         }
-        handleSearchResult(response.roomDTOList);
+        handleSearchResult(response.roomList);
         setError('');
       }
     } catch (error) {
