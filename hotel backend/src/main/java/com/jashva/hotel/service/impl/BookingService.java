@@ -84,7 +84,7 @@ public class BookingService implements IBookingService {
             BookingDTO bookingDTO = Utils.mapBookingEntityToBookingDTOPlusBookedRooms(booking, true);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setBookingDTO(bookingDTO);
+            response.setBooking(bookingDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -108,7 +108,7 @@ public class BookingService implements IBookingService {
             List<BookingDTO> bookingDTOList = Utils.mapBookingListEntityToBookingListDTO(bookingList);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setBookingDTOList(bookingDTOList);
+            response.setBookingList(bookingDTOList);
 
         } catch (OurException e) {
             response.setStatusCode(404);

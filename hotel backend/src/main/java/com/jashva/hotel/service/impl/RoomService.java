@@ -45,7 +45,7 @@ public class RoomService implements IRoomService {
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(savedRoom);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTO(roomDTO);
+            response.setRoom(roomDTO);
 
         } catch (Exception e) {
             response.setStatusCode(500);
@@ -68,7 +68,7 @@ public class RoomService implements IRoomService {
             List<RoomDTO> roomDTOList = Utils.mapRoomListEntityToRoomListDTO(roomList);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTOList(roomDTOList);
+            response.setRoomList(roomDTOList);
 
         } catch (Exception e) {
             response.setStatusCode(500);
@@ -117,7 +117,7 @@ public class RoomService implements IRoomService {
 
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTO(roomDTO);
+            response.setRoom(roomDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -138,7 +138,7 @@ public class RoomService implements IRoomService {
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTOPlusBookings(room);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTO(roomDTO);
+            response.setRoom(roomDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -159,7 +159,7 @@ public class RoomService implements IRoomService {
             List<RoomDTO> roomDTOList = Utils.mapRoomListEntityToRoomListDTO(availableRooms);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTOList(roomDTOList);
+            response.setRoomList(roomDTOList);
 
         } catch (Exception e) {
             response.setStatusCode(500);
@@ -177,7 +177,7 @@ public class RoomService implements IRoomService {
             List<RoomDTO> roomDTOList = Utils.mapRoomListEntityToRoomListDTO(roomList);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setRoomDTOList(roomDTOList);
+            response.setRoomList(roomDTOList);
 
         } catch (OurException e) {
             response.setStatusCode(404);

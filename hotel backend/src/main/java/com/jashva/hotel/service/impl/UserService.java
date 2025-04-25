@@ -43,7 +43,7 @@ public class UserService implements IUserService {
             User savedUser = userRepository.save(user);
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(savedUser);
             response.setStatusCode(200);
-            response.setUserDTO(userDTO);
+            response.setUser(userDTO);
         } catch (OurException e) {
             response.setStatusCode(400);
             response.setMessage(e.getMessage());
@@ -92,7 +92,7 @@ public class UserService implements IUserService {
             List<UserDTO> userDTOList = Utils.mapUserListEntityToUserListDTO(userList);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setUserDTOList(userDTOList);
+            response.setUserList(userDTOList);
 
         } catch (Exception e) {
             response.setStatusCode(500);
@@ -112,7 +112,7 @@ public class UserService implements IUserService {
             UserDTO userDTO = Utils.mapUserEntityToUserDTOPlusUserBookingsAndRoom(user);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setUserDTO(userDTO);
+            response.setUser(userDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -159,7 +159,7 @@ public class UserService implements IUserService {
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setUserDTO(userDTO);
+            response.setUser(userDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
@@ -183,7 +183,7 @@ public class UserService implements IUserService {
             UserDTO userDTO = Utils.mapUserEntityToUserDTO(user);
             response.setStatusCode(200);
             response.setMessage("successful");
-            response.setUserDTO(userDTO);
+            response.setUser(userDTO);
 
         } catch (OurException e) {
             response.setStatusCode(404);
