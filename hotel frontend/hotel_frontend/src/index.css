@@ -33,7 +33,7 @@
 .navbar-brand a {
   font-size: 24px;
   font-weight: bold;
-  color: #007F86;
+  color: #1380a7;
   text-decoration: none;
 }
 
@@ -57,12 +57,12 @@
 }
 
 .navbar-ul li a:hover {
-  color: #FF007F;
-  color: #FF7F50;
+  color: #50bcff;
+  color: #1e9ddc;
 }
 
 .navbar-ul li a.active {
-  color: #FF7F50;
+  color: #50bcff;
 }
 
 .auth-container {
@@ -159,8 +159,8 @@ button[type="submit"]:hover {
 .my-footer {
   color: #f0e8e8;
   background-color: #444;
-  padding: 20px;
-  text-align: center;
+  padding: 15px;
+  text-align: left;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -363,9 +363,9 @@ button[type="submit"]:hover {
   margin: 5px auto 30px auto;
 }
 
-.phegon-color {
-  color: #FF007F;
-  color: #FF7F50;
+.type-color {
+  color: #e468f8;
+  color: #ffb650;
 }
 
 .service-section {
