@@ -31,5 +31,5 @@ The **Jashva Hotel Management System** is a comprehensive solution that allows h
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/jashva-hotel-management.git
+   git clone https://github.com/jashvanth370/Hotel_Management.git
    cd jashva-hotel-management
