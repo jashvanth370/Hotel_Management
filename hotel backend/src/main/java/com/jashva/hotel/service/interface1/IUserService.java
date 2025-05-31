@@ -20,4 +20,6 @@ public interface IUserService {
 
     Response getMyInfo(String email);
 
+    Response createUser(User user);
+
 }

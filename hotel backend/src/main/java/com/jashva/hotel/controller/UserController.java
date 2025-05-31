@@ -2,6 +2,7 @@ package com.jashva.hotel.controller;
 
 
 import com.jashva.hotel.dto.Response;
+import com.jashva.hotel.entity.User;
 import com.jashva.hotel.service.interface1.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,12 @@ public class UserController {
     @GetMapping("/get-user-bookings/{userId}")
     public ResponseEntity<Response> getUserBookingHistory(@PathVariable("userId") String userId) {
         Response response = userService.getUserBookingHistory(userId);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PostMapping
+    public ResponseEntity<Response> createUser(@RequestBody User user) {
+        Response response = userService.createUser(user);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

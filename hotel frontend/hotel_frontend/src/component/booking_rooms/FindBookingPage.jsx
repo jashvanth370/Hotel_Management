@@ -6,6 +6,24 @@ const FindBookingPage = () => {
     const [bookingDetails, setBookingDetails] = useState(null); // State variable for booking details
     const [error, setError] = useState(null); // Track any errors
 
+    const handleDelete = async () => {
+        if (!bookingDetails?.id) {
+            setError("Invalid Booking code")
+            return;
+        }
+        try {
+            await ApiService.cancelBooking(bookingDetails.id);
+            setBookingDetails(null)
+            setError(null);
+            alert("Booking cancelled successfully.");
+        }
+        catch (error) {
+            setError(error.response?.data?.message || "Failed to cancel booking.");
+            setTimeout(() => setError(''), 5000);
+        }
+
+    }
+
     const handleSearch = async () => {
         if (!confirmationCode.trim()) {
             setError("Please Enter a booking confirmation code");
@@ -64,6 +82,7 @@ const FindBookingPage = () => {
                         <p> Room Type: {bookingDetails.room.roomType}</p>
                         <img src={bookingDetails.room.roomPhotoUrl} alt="" sizes="" srcSet="" />
                     </div>
+                    <button onClick={handleDelete}> Cancel </button>
                 </div>
             )}
         </div>

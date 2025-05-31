@@ -1,5 +1,4 @@
 
-
 // src/App.js
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -20,6 +19,8 @@ import EditBookingPage from './component/admin/EditBookingPage';
 import ProfilePage from './component/profile/ProfilePage';
 import EditProfilePage from './component/profile/EditProfilePage';
 import { ProtectedRoute, AdminRoute } from './service/guard';
+import ManageUserPage from './component/admin/ManageUserPage';
+import AdminAddUserPage from './component/admin/AdminAddUserPage';
 
 function App() {
   return (
@@ -62,8 +63,15 @@ function App() {
             <Route path="/admin/manage-bookings"
               element={<AdminRoute element={<ManageBookingsPage />} />}
             />
+            <Route path="/admin/manage-users"
+              element={<AdminRoute element={<ManageUserPage />} />}
+            />
             <Route path="/admin/edit-booking/:bookingCode"
               element={<AdminRoute element={<EditBookingPage />} />}
+            />
+
+            <Route path="/admin/add-user"
+              element={<AdminRoute element={<AdminAddUserPage />} />}
             />
 
             {/* Fallback Route */}

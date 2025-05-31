@@ -68,6 +68,7 @@ const RoomSearch = ({ handleSearchResult }) => {
             onChange={(date) => setStartDate(date)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Select Check-in Date"
+            style={{ width:0 }}
           />
         </div>
         <div className="search-field">

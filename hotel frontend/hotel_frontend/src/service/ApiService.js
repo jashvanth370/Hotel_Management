@@ -20,6 +20,11 @@ export default class ApiService {
         return response.data
     }
 
+    static async addUser(userData) {
+        const response = await axios.post(`${this.BASE_URL}/users`,userData)
+        return response.data
+    }
+
     /* This  login a registered user */
     static async loginUser(loginDetails) {
         const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
@@ -28,6 +33,7 @@ export default class ApiService {
 
     /***USERS */
 
+    
 
     /*  This is  to get the user profile */
     static async getAllUsers() {
@@ -191,4 +197,6 @@ export default class ApiService {
         return role === 'USER'
     }
 }
+
+
 // export default new ApiService();

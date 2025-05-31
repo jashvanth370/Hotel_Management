@@ -16,20 +16,20 @@ The **Jashva Hotel Management System** is a comprehensive solution that allows h
 - Staff Management
 - Reporting and Analytics
 - Email Notifications (Optional)
-
+- 
 ## 🧑‍💻 Technologies Used
 
 > _Modify this section based on your actual tech stack._
 
-- Frontend: HTML, CSS, JavaScript / React / Angular
-- Backend: Node.js / Spring Boot / Django / PHP
-- Database: MySQL / PostgreSQL / MongoDB
+- Frontend: HTML, CSS, JavaScript / React / 
+- Backend: Node.js / Spring Boot / 
+- Database: MySQL / 
 - Authentication: JWT / Session-based
-- Deployment: GitHub Pages / Heroku / Vercel / Netlify / Localhost
+- Deployment: GitHub Pages  / Localhost 
 
 ## ⚙️ Installation
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/jashva-hotel-management.git
+   git clone https://github.com/jashvanth370/Hotel_Management.git
    cd jashva-hotel-management
