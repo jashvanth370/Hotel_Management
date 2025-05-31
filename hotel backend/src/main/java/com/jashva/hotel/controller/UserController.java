@@ -2,6 +2,7 @@ package com.jashva.hotel.controller;
 
 
 import com.jashva.hotel.dto.Response;
+import com.jashva.hotel.dto.UserDTO;
 import com.jashva.hotel.entity.User;
 import com.jashva.hotel.service.interface1.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,11 @@ public class UserController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
+    @PutMapping("/update/{userId}")
+    public ResponseEntity<Response> updateUser(@PathVariable Long userId,
+                                               @RequestBody UserDTO userDTO){
+        Response response = userService.updateUser(userId,userDTO);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 
 }

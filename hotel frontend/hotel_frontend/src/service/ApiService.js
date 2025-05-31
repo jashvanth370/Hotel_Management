@@ -68,6 +68,14 @@ export default class ApiService {
         return response.data
     }
 
+    // This is to update user by ther user ID
+    static async userUpdate(userId, userData){
+        const response = await axios.put(`${this.BASE_URL}/users/update/${userId}`,userData ,{
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
 
     /* This is to delete a user */
     static async deleteUser(userId) {

@@ -3,6 +3,7 @@ package com.jashva.hotel.service.interface1;
 
 import com.jashva.hotel.dto.LoginRequest;
 import com.jashva.hotel.dto.Response;
+import com.jashva.hotel.dto.UserDTO;
 import com.jashva.hotel.entity.User;
 
 public interface IUserService {
@@ -21,5 +22,7 @@ public interface IUserService {
     Response getMyInfo(String email);
 
     Response createUser(User user);
+
+    Response updateUser(Long userId, UserDTO user);
 
 }

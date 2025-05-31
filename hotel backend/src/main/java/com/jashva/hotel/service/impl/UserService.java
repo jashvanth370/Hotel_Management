@@ -10,12 +10,15 @@ import com.jashva.hotel.service.interface1.IUserService;
 import com.jashva.hotel.utils.JWTUtils;
 import com.jashva.hotel.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -222,5 +225,36 @@ public class UserService implements IUserService {
         }
         return response;
     }
+
+    public Response updateUser(Long userId, UserDTO userDTO) {
+        Optional<User> existingUser = userRepository.findById(userId);
+        Response response = new Response();
+        if (existingUser.isEmpty()) {
+            response.setStatusCode(400);
+            response.setMessage("User Not found");
+        }
+
+        try {
+            User user = existingUser.get();
+
+            // Update fields from userDTO
+            user.setName(userDTO.getName());
+            user.setEmail(userDTO.getEmail());
+            user.setPhoneNumber(userDTO.getPhoneNumber());
+
+            // Add more fields as needed
+
+            userRepository.save(user);
+
+            response.setStatusCode(200);
+            response.setMessage("User update successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setMessage("Internal server error");
+            response.setStatusCode(500);
+        }
+        return response;
+    }
+
 
 }
