@@ -15,7 +15,8 @@ const ManageUserPage = () => {
         const fetchUsers = async () => {
             try {
                 const response = await ApiService.getAllUsers();
-                const userList = response?.data ?? []; // <- Properly extract user list
+                console.log("users",response.userList)
+                const userList = response?.userList ?? []; // <- Properly extract user list
                 setUsers(userList);
                 setFilteredUsers(userList);
                 console.log('Fetched users:', userList);
@@ -70,10 +71,10 @@ const ManageUserPage = () => {
             <table className='user-table'>
                 <thead>
                     <tr>
-                        <th>Name :</th>
-                        <th>Email :</th>
-                        <th>Phone :</th>
-                        <th>Role :</th>
+                        <th>Name </th>
+                        <th>Email </th>
+                        <th>Phone </th>
+                        <th>Role </th>
                     </tr>
                 </thead>
                 <tbody>

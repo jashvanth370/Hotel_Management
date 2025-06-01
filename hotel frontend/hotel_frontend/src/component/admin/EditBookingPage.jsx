@@ -34,7 +34,6 @@ const EditBookingPage = () => {
                 alert("archived booking")
                 await fetchBookingDetails();
                 
-                
                 setTimeout(() => {
                     setSuccessMessage('');
                     navigate('/admin/manage-bookings');
