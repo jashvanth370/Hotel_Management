@@ -5,46 +5,52 @@ import Pagination from '../common/Pagination';
 
 const ManageBookingsPage = () => {
     const [bookings, setBookings] = useState([]);
-    const [filteredBookings, setFilteredBookings] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [bookingsPerPage] = useState(6);
+    const [showArchived, setShowArchived] = useState(false);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchBookings = async () => {
+    const fetchBookings = async () => {
             try {
                 const response = await ApiService.getAllBookings();
-                const allBookings = response.bookingList;
-                setBookings(allBookings);
-                setFilteredBookings(allBookings);
+                console.log("✅ Booking API Response:", response);
+                setBookings(response.bookingList || []);
+                console.log("message", response.message)
             } catch (error) {
-                console.error('Error fetching bookings:', error.message);
+                console.error('❌ Error fetching bookings:', error.message);
             }
         };
-
+        
+    useEffect(() => {
         fetchBookings();
     }, []);
 
-    useEffect(() => {
-        filterBookings(searchTerm);
-    }, [searchTerm, bookings]);
-
-    const filterBookings = (term) => {
-        if (term === '') {
-            setFilteredBookings(bookings);
-        } else {
-            const filtered = bookings.filter((booking) =>
-                booking.bookingConfirmationCode && booking.bookingConfirmationCode.toLowerCase().includes(term.toLowerCase())
-            );
-            setFilteredBookings(filtered);
-        }
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
         setCurrentPage(1);
     };
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+    const toggleArchived = () => {
+        setShowArchived(prev => !prev);
+        setCurrentPage(1);
     };
+
+    const handleUnarchive = async (bookingId) => {
+        try {
+            await ApiService.unarchiveBooking(bookingId);
+            alert("unachieved");
+            await fetchBookings();
+        } catch (error) {
+            console.error("Failed to unarchive booking:", error.message)
+        }
+    }
+
+    const filteredBookings = bookings.filter((booking) => {
+        const matchesArchived = booking.archived === showArchived;
+        const matchesSearch = booking.bookingConfirmationCode?.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesArchived && matchesSearch;
+    });
 
     const indexOfLastBooking = currentPage * bookingsPerPage;
     const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
@@ -54,30 +60,54 @@ const ManageBookingsPage = () => {
 
     return (
         <div className='bookings-container'>
-            <h2>All Bookings</h2>
-            <div className='search-div'>
-                <label>Filter by Booking Number:</label>
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="Enter booking number"
-                />
+            <h2>{showArchived ? 'Archived Bookings' : 'Active Bookings'}</h2>
+
+            <div className='controls'>
+                <div className='search-div'>
+                    <label>Filter by Booking Number:</label>
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        placeholder="Enter booking number"
+                    />
+                </div>
+
+                <button className='toggle-archive-button' onClick={toggleArchived}>
+                    {showArchived ? 'Show Active Bookings' : 'Show Archived Bookings'}
+                </button>
             </div>
 
             <div className="booking-results">
-                {currentBookings.map((booking) => (
-                    <div key={booking.id} className="booking-result-item">
-                        <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
-                        <p><strong>Check In Date:</strong> {booking.checkInDate}</p>
-                        <p><strong>Check out Date:</strong> {booking.checkOutDate}</p>
-                        <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
-                        <button
-                            className="edit-room-button"
-                            onClick={() => navigate(`/admin/edit-booking/${booking.bookingConfirmationCode}`)}
-                        >Manage Booking</button>
-                    </div>
-                ))}
+                {currentBookings.length > 0 ? (
+                    currentBookings.map((booking) => (
+                        <div key={booking.id} className="booking-result-item">
+                            <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
+                            <p><strong>Check In Date:</strong> {booking.checkInDate}</p>
+                            <p><strong>Check Out Date:</strong> {booking.checkOutDate}</p>
+                            <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
+                            {booking.archived ? (
+                                <button
+                                    className="edit-room-button"
+                                    onClick={() => handleUnarchive(booking.id)}
+                                >
+                                    Unarchive Booking
+                                </button>
+                            ) : (
+                                <button
+                                    className='edit-room-button'
+                                    onClick={() => navigate(`/admin/edit-booking/${booking.bookingConfirmationCode}`)}
+                                >
+                                    Manage Booking
+                                </button>
+                            )
+                            }
+
+                        </div>
+                    ))
+                ) : (
+                    <p>No bookings found.</p>
+                )}
             </div>
 
             <Pagination

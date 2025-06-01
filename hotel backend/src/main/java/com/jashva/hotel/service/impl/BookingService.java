@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService implements IBookingService {
@@ -105,6 +106,7 @@ public class BookingService implements IBookingService {
 
         try {
             List<Booking> bookingList = bookingRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+
             List<BookingDTO> bookingDTOList = Utils.mapBookingListEntityToBookingListDTO(bookingList);
             response.setStatusCode(200);
             response.setMessage("successful");
@@ -140,6 +142,93 @@ public class BookingService implements IBookingService {
         } catch (Exception e) {
             response.setStatusCode(500);
             response.setMessage("Error Cancelling a booking: " + e.getMessage());
+
+        }
+        return response;
+    }
+
+    @Override
+    public Response achieveBooking(Long id) {
+
+        Response response = new Response();
+        Optional<Booking> existingBooking = bookingRepository.findById(id);
+        if(existingBooking.isEmpty()){
+            response.setStatusCode(400);
+            response.setMessage("booking not there");
+        }
+
+
+        try{
+
+            Booking booking = existingBooking.get();
+            booking.setArchived(true);
+            bookingRepository.save(booking);
+
+            response.setMessage("Booking archived successfully");
+            response.setStatusCode(201);
+        }
+        catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Achieved a booking: " + e.getMessage());
+
+        }
+        return response;
+    }
+
+    @Override
+    public Response unAchieveBooking(Long id) {
+        Response response = new Response();
+        Optional<Booking> existingBooking = bookingRepository.findById(id);
+        if(existingBooking.isEmpty()){
+            response.setStatusCode(400);
+            response.setMessage("booking not there");
+        }
+
+        try{
+
+            Booking booking = existingBooking.get();
+            booking.setArchived(false);
+            bookingRepository.save(booking);
+
+            response.setMessage("Booking Unarchived successfully");
+            response.setStatusCode(201);
+        }
+        catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error UnAchieved a booking: " + e.getMessage());
+
+        }
+        return response;
+    }
+
+    @Override
+    public Response getActiveBookings() {
+        Response response = new Response();
+        List<Booking> activeBookings = bookingRepository.findByArchivedFalse();
+        try{
+            response.setStatusCode(200);
+            response.setMessage("Active bookings fetched");
+
+        }
+        catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Achieved a booking: " + e.getMessage());
+
+        }
+        return response;
+    }
+
+    @Override
+    public Response getArchivedBookings() {
+        List<Booking> archivedBookings = bookingRepository.findByArchivedTrue();
+        Response response = new Response();
+        try{
+            response.setStatusCode(200);
+            response.setMessage("Archived bookings fetched");
+        }
+        catch (Exception e) {
+            response.setStatusCode(500);
+            response.setMessage("Error Achieved a booking: " + e.getMessage());
 
         }
         return response;

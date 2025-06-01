@@ -32,6 +32,10 @@ public class Booking {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "archived")
+    private boolean archived = false;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;

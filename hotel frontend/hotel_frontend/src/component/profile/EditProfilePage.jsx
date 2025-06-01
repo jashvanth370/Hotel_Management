@@ -95,10 +95,13 @@ const EditProfilePage = () => {
                             onChange={handleChange}
                         />
                     </label>
-                    <button onClick={handleEditProfile}>Update Profile</button>
-                    <button onClick={handleDeleteProfile} className="delete-profile-button">
-                        Delete Profile
-                    </button>
+                    <div className='buttons'>
+                        <button onClick={handleEditProfile} >Update Profile</button>
+                        <button onClick={handleDeleteProfile} className="delete-profile-button">
+                            Delete Profile
+                        </button>
+                    </div>
+
                 </div>
             )}
         </div>

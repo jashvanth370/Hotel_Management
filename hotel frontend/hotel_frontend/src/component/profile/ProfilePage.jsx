@@ -59,6 +59,7 @@ const ProfilePage = () => {
                                 <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
                                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
+                                {/* <button > Cancel Booking</button> */}
                             </div>
                         ))
                     ) : (

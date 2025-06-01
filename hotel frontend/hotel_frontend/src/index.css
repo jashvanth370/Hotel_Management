@@ -17,6 +17,21 @@
   color: #007F86;
   color: #007F86;
 }
+ /*Logo*/
+ 
+.logo {
+  height: 50px; /* or adjust to your desired size */
+  width: auto;
+  object-fit: contain;
+  display: block;
+  margin: 10px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
 
 /* General Navbar Styling */
 .navbar {
@@ -1227,4 +1242,39 @@ h2 {
   border: none;
   cursor: pointer;
   border-radius: 5px;
+}
+
+
+/*Update user css*/
+.edit-profile-page {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    
+}
+.profile-form label {
+    display: block;
+    margin-bottom: 10px;
+    
+}
+
+.buttons{
+  align-items: center;
+  justify-content: center;
+}
+.profile-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+}
+button {
+    margin-top: 15px;
+    padding: 10px;
+    align-items: center;
+}
+.delete-profile-button {
+    background-color: red;
+    color: white;
+    margin-left: 10px;
+    align-items: center;
 }

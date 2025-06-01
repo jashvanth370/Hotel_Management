@@ -15,5 +15,7 @@ public class BookingDTO {
     private String bookingConfirmationCode;
     private UserDTO user;
     private RoomDTO room;
+    private boolean archived;
+
 
 }

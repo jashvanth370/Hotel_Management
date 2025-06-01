@@ -21,7 +21,7 @@ export default class ApiService {
     }
 
     static async addUser(userData) {
-        const response = await axios.post(`${this.BASE_URL}/users`,userData)
+        const response = await axios.post(`${this.BASE_URL}/users`, userData)
         return response.data
     }
 
@@ -33,7 +33,7 @@ export default class ApiService {
 
     /***USERS */
 
-    
+
 
     /*  This is  to get the user profile */
     static async getAllUsers() {
@@ -69,8 +69,8 @@ export default class ApiService {
     }
 
     // This is to update user by ther user ID
-    static async userUpdate(userId, userData){
-        const response = await axios.put(`${this.BASE_URL}/users/update/${userId}`,userData ,{
+    static async userUpdate(userId, userData) {
+        const response = await axios.put(`${this.BASE_URL}/users/update/${userId}`, userData, {
             headers: this.getHeader()
         })
         return response.data
@@ -169,6 +169,15 @@ export default class ApiService {
         return result.data
     }
 
+    /*This is unachive bookings */ 
+    static async unarchiveBooking(bookingId) {
+        const result = await axios.put(`${this.BASE_URL}/bookings/unArchive/${bookingId}`, {}, {
+            headers: this.getHeader()
+        });
+        return result.data;
+    }
+
+
     /* This  get booking by the cnfirmation code */
     static async getBookingByConfirmationCode(bookingCode) {
         const result = await axios.get(`${this.BASE_URL}/bookings/get-by-confirmation-code/${bookingCode}`)
@@ -183,6 +192,13 @@ export default class ApiService {
         return result.data
     }
 
+    /* This is a Archive booking */
+    static async archiveBooking(bookingId) {
+        const result = await axios.put(`${this.BASE_URL}/bookings/archive/${bookingId}`, {
+            headers: this.getHeader()
+        })
+        return result.data
+    }
 
     /**AUTHENTICATION CHECKER */
     static logout() {

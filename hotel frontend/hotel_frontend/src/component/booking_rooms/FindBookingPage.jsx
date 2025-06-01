@@ -18,6 +18,7 @@ const FindBookingPage = () => {
             alert("Booking cancelled successfully.");
         }
         catch (error) {
+            console.log(error)
             setError(error.response?.data?.message || "Failed to cancel booking.");
             setTimeout(() => setError(''), 5000);
         }

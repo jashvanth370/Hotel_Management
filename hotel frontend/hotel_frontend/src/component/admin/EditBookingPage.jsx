@@ -9,10 +9,7 @@ const EditBookingPage = () => {
     const [error, setError] = useState(null); // Track any errors
     const [success, setSuccessMessage] = useState(null); // Track any errors
 
-
-
-    useEffect(() => {
-        const fetchBookingDetails = async () => {
+    const fetchBookingDetails = async () => {
             try {
                 const response = await ApiService.getBookingByConfirmationCode(bookingCode);
                 setBookingDetails(response.booking);
@@ -21,25 +18,28 @@ const EditBookingPage = () => {
             }
         };
 
+
+    useEffect(() => {
         fetchBookingDetails();
     }, [bookingCode]);
 
 
     const acheiveBooking = async (bookingId) => {
-        if (!window.confirm('Are you sure you want to Acheive this booking?')) {
-            return; // Do nothing if the user cancels
-        }
+        // if (!window.confirm('Are you sure you want to Acheive this booking?')) {
+        //     return; // Do nothing if the user cancels
+        // }
 
         try {
-            const response = await ApiService.cancelBooking(bookingId);
-            if (response.statusCode === 200) {
-                setSuccessMessage("The boking was Successfully Acheived")
+                await ApiService.archiveBooking(bookingId);
+                alert("archived booking")
+                await fetchBookingDetails();
+                
                 
                 setTimeout(() => {
                     setSuccessMessage('');
                     navigate('/admin/manage-bookings');
-                }, 3000);
-            }
+                }, 1000);
+            
         } catch (error) {
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);

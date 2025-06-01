@@ -41,12 +41,39 @@ public class BookingController {
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
-    @DeleteMapping("/cancel/{confirmationCode}")
+    @DeleteMapping("/cancel/{bookingId}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Response> cancelBooking(@PathVariable Long bookingId) {
         Response response = bookingService.cancelBooking(bookingId);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
+    @PutMapping("/archive/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> achieveBooking(@PathVariable Long id){
+        Response response = bookingService.achieveBooking(id);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @PutMapping("/unArchive/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> unAchieveBooking(@PathVariable Long id){
+        Response response = bookingService.unAchieveBooking(id);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/active")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> getActiveBookings() {
+        Response response = bookingService.getActiveBookings();
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/archived")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Response> getArchivedBookings() {
+        Response response = bookingService.getArchivedBookings();
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 
 }
