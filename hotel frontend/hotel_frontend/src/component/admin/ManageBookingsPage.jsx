@@ -21,7 +21,7 @@ const ManageBookingsPage = () => {
                 console.error('❌ Error fetching bookings:', error.message);
             }
         };
-        
+
     useEffect(() => {
         fetchBookings();
     }, []);
@@ -37,9 +37,9 @@ const ManageBookingsPage = () => {
     };
 
     const handleUnarchive = async (bookingId) => {
+        if (!window.confirm('Are you sure you want to unachive this booking?')) return;
         try {
             await ApiService.unarchiveBooking(bookingId);
-            alert("unachieved");
             await fetchBookings();
         } catch (error) {
             console.error("Failed to unarchive booking:", error.message)

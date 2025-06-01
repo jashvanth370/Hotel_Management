@@ -43,6 +43,9 @@ const EditProfilePage = () => {
         try {
             await ApiService.userUpdate(user.id, formData);
             setSuccess('Profile updated successfully');
+            setTimeout(() => {
+                    navigate('/profile');
+                }, 1000);
             setError(null);
         } catch (error) {
             setError('Failed to update profile');

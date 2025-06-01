@@ -7,8 +7,7 @@ const ProfilePage = () => {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchUserProfile = async () => {
+    const fetchUserProfile = async () => {
             try {
                 const response = await ApiService.getUserProfile();
                 // Fetch user bookings using the fetched user ID
@@ -20,10 +19,13 @@ const ProfilePage = () => {
             }
         };
 
+
+    useEffect(() => {
         fetchUserProfile();
     }, []);
 
     const handleLogout = () => {
+        if (!window.confirm('Are you sure you want to logout ?')) return;
         ApiService.logout();
         navigate('/home');
     };
@@ -31,6 +33,20 @@ const ProfilePage = () => {
     const handleEditProfile = () => {
         navigate('/edit-profile');
     };
+
+    const handleCancelBooking = async (bookingId) =>{
+        if (!window.confirm('Are you sure you want to cancel your booking?')) return;
+        try{
+            await ApiService.cancelBooking(bookingId);
+            alert("Cancel Booking")
+            await fetchUserProfile();
+            
+        }catch(error){
+            console.error("Error to cancel order",error)
+        }
+        
+
+    }
 
     return (
         <div className="profile-page">
@@ -59,7 +75,10 @@ const ProfilePage = () => {
                                 <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
                                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
-                                {/* <button > Cancel Booking</button> */}
+                                <div>
+                                    <button onClick={() =>handleCancelBooking(booking.id)} > Cancel Booking</button>
+
+                                </div>
                             </div>
                         ))
                     ) : (
