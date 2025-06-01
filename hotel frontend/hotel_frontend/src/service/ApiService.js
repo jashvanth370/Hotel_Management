@@ -169,7 +169,7 @@ export default class ApiService {
         return result.data
     }
 
-    /*This is unachive bookings */ 
+    /*This is unachive bookings */
     static async unarchiveBooking(bookingId) {
         const result = await axios.put(`${this.BASE_URL}/bookings/unArchive/${bookingId}`, {}, {
             headers: this.getHeader()
@@ -191,6 +191,18 @@ export default class ApiService {
         })
         return result.data
     }
+
+    /** NEWSLETTER SUBSCRIPTION */
+    static async subscribeNewsletter(data) {
+        const response = await axios.post(`${this.BASE_URL}/newsletter/subscribe`, data, {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        return response.data;
+    }
+
+
 
     /* This is a Archive booking */
     static async archiveBooking(bookingId) {
