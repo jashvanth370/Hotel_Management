@@ -21,6 +21,8 @@ import EditProfilePage from './component/profile/EditProfilePage';
 import { ProtectedRoute, AdminRoute } from './service/guard';
 import ManageUserPage from './component/admin/ManageUserPage';
 import AdminAddUserPage from './component/admin/AdminAddUserPage';
+import SuccessPage from './component/pages/SuccessPage';
+import CancelPage from './component/pages/CancelPage';
 
 function App() {
   return (
@@ -76,6 +78,10 @@ function App() {
 
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/login" />} />
+
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/cancel" element={<CancelPage />} />
+
           </Routes>
         </div>
         <FooterComponent />

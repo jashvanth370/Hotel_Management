@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 // import 'react-datepicker/dist/react-datepicker.css';
 
 const RoomDetailsPage = () => {
@@ -29,7 +30,7 @@ const RoomDetailsPage = () => {
         const response = await ApiService.getRoomById(roomId);
         console.log(response);
         setRoomDetails(response.room);
-        
+
         const userProfile = await ApiService.getUserProfile();
         setUserId(userProfile.user.id);
       } catch (error) {
@@ -74,6 +75,7 @@ const RoomDetailsPage = () => {
 
     setTotalPrice(totalPrice);
     setTotalGuests(totalGuests);
+
   };
 
   const acceptBooking = async () => {
@@ -121,6 +123,35 @@ const RoomDetailsPage = () => {
       alert(error.response?.data?.message || error.message);
       setErrorMessage(error.response?.data?.message || error.message);
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
+    }
+
+    // Calculate total number of days
+    const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+    const startDate = new Date(checkInDate);
+    const endDate = new Date(checkOutDate);
+    const totalDays = Math.round(Math.abs((endDate - startDate) / oneDay)) + 1;
+
+    // Calculate total number of guests
+    const totalGuests = numAdults + numChildren;
+
+    // Calculate total price
+    const roomPricePerNight = roomDetails.roomPrice;
+    const calculatedTotalPrice = roomPricePerNight * totalDays;
+
+
+    try {
+      const response = await axios.post('http://localhost:4040/payment/create-checkout-session', {
+        amount: calculatedTotalPrice,
+        description: `${roomDetails.roomType} room booking for ${totalDays} nights`
+      });
+
+      console.log("order")
+      if (response.data.url) {
+        window.location.href = response.data.url; // redirect to Stripe Checkout
+      }
+    } catch (error) {
+      console.log("order")
+      alert('Error creating payment session: ' + error.message);
     }
   };
 
@@ -186,7 +217,7 @@ const RoomDetailsPage = () => {
               endDate={checkOutDate}
               placeholderText="Check-in Date"
               dateFormat="dd/MM/yyyy"
-              // dateFormat="yyyy-MM-dd"
+            // dateFormat="yyyy-MM-dd"
             />
             <DatePicker
               className="detail-search-field"

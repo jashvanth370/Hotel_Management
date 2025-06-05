@@ -44,9 +44,9 @@ const ProfilePage = () => {
         }catch(error){
             console.error("Error to cancel order",error)
         }
-        
+    };
 
-    }
+    const handlePaymentBooking = async ()=>{}
 
     return (
         <div className="profile-page">
@@ -77,6 +77,7 @@ const ProfilePage = () => {
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
                                 <div>
                                     <button onClick={() =>handleCancelBooking(booking.id)} > Cancel Booking</button>
+                                    <button onClick={() =>handlePaymentBooking()}>Payment </button>
 
                                 </div>
                             </div>

@@ -177,6 +177,24 @@ export default class ApiService {
         return result.data;
     }
 
+    /* This is Payment session gateway */
+    static async createCheckoutSession(bookingInfo) {
+        const response = await fetch(`${this.BASE_URL}/payment/create-checkout-session`, {
+            method: 'POST',
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(bookingInfo)
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to create checkout session');
+        }
+        return await response.json();
+    }
+
+
 
     /* This  get booking by the cnfirmation code */
     static async getBookingByConfirmationCode(bookingCode) {
