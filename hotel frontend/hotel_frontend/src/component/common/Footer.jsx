@@ -14,6 +14,7 @@ const FooterComponent = () => {
             setMessage(response);
             setEmail('');
         } catch (error) {
+            console.log(email)
             console.error("Subscription failed:", error);
             setMessage("Failed to subscribe. Please try again.");
         }
@@ -45,7 +46,7 @@ const FooterComponent = () => {
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="/rooms">Rooms & Suites</a></li>
-                        <li><a href="/bookings">Manage Booking</a></li>
+                        <li><a href="/find-bookings">Manage Booking</a></li>
                         <li><a href="/events">Events & Conferences</a></li>
                         <li><a href="/gallery">Gallery</a></li>
                         <li><a href="/contact">Contact Us</a></li>

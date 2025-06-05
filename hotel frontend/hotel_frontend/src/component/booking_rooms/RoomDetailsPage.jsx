@@ -45,6 +45,7 @@ const RoomDetailsPage = () => {
   const handleConfirmBooking = async () => {
     // Check if check-in and check-out dates are selected
     if (!checkInDate || !checkOutDate) {
+      alert('Please select check-in and check-out dates.')
       setErrorMessage('Please select check-in and check-out dates.');
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
       return;
@@ -52,6 +53,7 @@ const RoomDetailsPage = () => {
 
     // Check if number of adults and children are valid
     if (isNaN(numAdults) || numAdults < 1 || isNaN(numChildren) || numChildren < 0) {
+      alert('Please enter valid numbers for adults and children.')
       setErrorMessage('Please enter valid numbers for adults and children.');
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
       return;
@@ -116,6 +118,7 @@ const RoomDetailsPage = () => {
         }, 10000);
       }
     } catch (error) {
+      alert(error.response?.data?.message || error.message);
       setErrorMessage(error.response?.data?.message || error.message);
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
     }
