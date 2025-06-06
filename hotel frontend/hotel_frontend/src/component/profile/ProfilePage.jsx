@@ -8,16 +8,16 @@ const ProfilePage = () => {
     const navigate = useNavigate();
 
     const fetchUserProfile = async () => {
-            try {
-                const response = await ApiService.getUserProfile();
-                // Fetch user bookings using the fetched user ID
-                const userPlusBookings = await ApiService.getUserBookings(response.user.id);
-                setUser(userPlusBookings.user)
+        try {
+            const response = await ApiService.getUserProfile();
+            // Fetch user bookings using the fetched user ID
+            const userPlusBookings = await ApiService.getUserBookings(response.user.id);
+            setUser(userPlusBookings.user)
 
-            } catch (error) {
-                setError(error.response?.data?.message || error.message);
-            }
-        };
+        } catch (error) {
+            setError(error.response?.data?.message || error.message);
+        }
+    };
 
 
     useEffect(() => {
@@ -34,19 +34,38 @@ const ProfilePage = () => {
         navigate('/edit-profile');
     };
 
-    const handleCancelBooking = async (bookingId) =>{
+    const handleCancelBooking = async (bookingId) => {
         if (!window.confirm('Are you sure you want to cancel your booking?')) return;
-        try{
+        try {
             await ApiService.cancelBooking(bookingId);
             alert("Cancel Booking")
             await fetchUserProfile();
-            
-        }catch(error){
-            console.error("Error to cancel order",error)
+
+        } catch (error) {
+            console.error("Error to cancel order", error)
         }
     };
 
-    const handlePaymentBooking = async ()=>{}
+    const handlePaymentBooking = async (booking) => {
+        // Calculate total number of days
+        const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
+        const startDate = new Date(booking.checkInDate);
+        const endDate = new Date(booking.checkOutDate);
+        const totalDays = Math.round(Math.abs((endDate - startDate) / oneDay)) + 1;
+
+        // Calculate total price
+        const roomPricePerNight = booking.room.roomPrice;
+        const calculatedTotalPrice = roomPricePerNight * totalDays;
+
+        try {
+            const totalAmount = roomPricePerNight * calculatedTotalPrice;
+            const res = await ApiService.createCheckoutSession(totalAmount,booking.id);
+            window.location.href = res.checkoutUrl;
+        } catch (error) {
+            alert("Payment failed to initiate.");
+            console.error(error);
+        }
+    }
 
     return (
         <div className="profile-page">
@@ -76,8 +95,8 @@ const ProfilePage = () => {
                                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
                                 <div>
-                                    <button onClick={() =>handleCancelBooking(booking.id)} > Cancel Booking</button>
-                                    <button onClick={() =>handlePaymentBooking()}>Payment </button>
+                                    <button onClick={() => handleCancelBooking(booking.id)} > Cancel Booking</button>
+                                    <button onClick={() => handlePaymentBooking(booking)}>Payment </button>
 
                                 </div>
                             </div>

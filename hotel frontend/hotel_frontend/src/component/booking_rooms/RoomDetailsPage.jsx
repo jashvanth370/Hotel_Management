@@ -139,20 +139,20 @@ const RoomDetailsPage = () => {
     const calculatedTotalPrice = roomPricePerNight * totalDays;
 
 
-    try {
-      const response = await axios.post('http://localhost:4040/payment/create-checkout-session', {
-        amount: calculatedTotalPrice,
-        description: `${roomDetails.roomType} room booking for ${totalDays} nights`
-      });
+    // try {
+    //   const response = await axios.post('http://localhost:4040/payment/create-checkout-session', {
+    //     amount: calculatedTotalPrice,
+    //     description: `${roomDetails.roomType} room booking for ${totalDays} nights`
+    //   });
 
-      console.log("order")
-      if (response.data.url) {
-        window.location.href = response.data.url; // redirect to Stripe Checkout
-      }
-    } catch (error) {
-      console.log("order")
-      alert('Error creating payment session: ' + error.message);
-    }
+    //   console.log("order")
+    //   if (response.data.url) {
+    //     window.location.href = response.data.url; // redirect to Stripe Checkout
+    //   }
+    // } catch (error) {
+    //   console.log("order")
+    //   alert('Error creating payment session: ' + error.message);
+    // }
   };
 
   if (isLoading) {
