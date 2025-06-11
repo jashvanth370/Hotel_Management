@@ -11,7 +11,8 @@ const FooterComponent = () => {
         e.preventDefault();
         try {
             const response = await ApiService.subscribeNewsletter({ email });
-            setMessage(response);
+            setMessage(response.message || "Subscribed successfully!");
+            alert("Subscribed successfully!")
             setEmail('');
         } catch (error) {
             console.log(email)
@@ -46,7 +47,7 @@ const FooterComponent = () => {
                     <h3>Quick Links</h3>
                     <ul>
                         <li><a href="/rooms">Rooms & Suites</a></li>
-                        <li><a href="/find-bookings">Manage Booking</a></li>
+                        <li><a href="/find-booking">Manage Booking</a></li>
                         <li><a href="/events">Events & Conferences</a></li>
                         <li><a href="/gallery">Gallery</a></li>
                         <li><a href="/contact">Contact Us</a></li>

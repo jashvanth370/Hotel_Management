@@ -24,6 +24,16 @@ import AdminAddUserPage from './component/admin/AdminAddUserPage';
 import SuccessPage from './component/pages/SuccessPage';
 import CancelPage from './component/pages/CancelPage';
 
+import FAQPage from "../src/component/pages/FAQPage";
+import HelpPage from "../src/component/pages/HelpPage";
+import PrivacyPage from '../src/component/pages/PrivacyPage';
+import FeedbackPage from '../src/component/pages/FeedbackPage';
+import GalleryPage from './component/pages/GellaryPage';
+import ContactPage from './component/pages/ContactPage';
+import TermsPage from './component/pages/TermsPage';
+
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +47,16 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/rooms" element={<AllRoomsPage />} />
             <Route path="/find-booking" element={<FindBookingPage />} />
+
+            {/* My add links*/}
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/help" element={<HelpPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="/feedback" element={<FeedbackPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/terms" element={<TermsPage />} />
+          
 
             {/* Protected Routes */}
             <Route path="/room-details-book/:roomId"

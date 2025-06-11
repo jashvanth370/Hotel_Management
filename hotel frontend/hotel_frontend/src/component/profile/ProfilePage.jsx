@@ -95,7 +95,7 @@ const ProfilePage = () => {
                                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
                                 <div>
-                                    <button onClick={() => handleCancelBooking(booking.id)} > Cancel Booking</button>
+                                    <button onClick={() => handleCancelBooking(booking.id)} > Cancel Booking</button><br></br>
                                     <button onClick={() => handlePaymentBooking(booking)}>Payment </button>
 
                                 </div>
