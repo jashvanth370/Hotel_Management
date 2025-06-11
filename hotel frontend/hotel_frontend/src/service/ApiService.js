@@ -12,6 +12,26 @@ export default class ApiService {
         };
     }
 
+    /** Feedback list  */
+    /* Save new feedback */
+    static async submitFeedback(feedback) {
+        const response = await axios.post(
+            `${this.BASE_URL}/feedback`,
+            feedback,
+            this.getHeader()
+        );
+        return response.data;
+    }
+
+    /* Get all feedback */
+    static async getAllFeedback() {
+        const response = await axios.get(
+            `${this.BASE_URL}/feedback`,
+            this.getHeader()
+        );
+        return response.data;
+    }
+
     /**AUTH */
 
     /* This  register a new user */
@@ -178,11 +198,11 @@ export default class ApiService {
     }
 
     /** This is Payment session gateway */
-    static async createCheckoutSession(amount,bookingId) {
+    static async createCheckoutSession(amount, bookingId) {
         try {
             const response = await axios.post(
                 `${this.BASE_URL}/payment/create-checkout-session`,
-                {amount,bookingId},
+                { amount, bookingId },
                 {
                     headers: this.getHeader()
                 }

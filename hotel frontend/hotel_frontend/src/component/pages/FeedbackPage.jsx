@@ -1,11 +1,20 @@
 import React, { useState } from "react";
+import ApiService from "../../service/ApiService";
 
 const FeedbackPage = () => {
   const [feedback, setFeedback] = useState("");
-  const handleSubmit = (e) => {
+  const [message, setMessage] = useState("");
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Thank you for your feedback!");
-    setFeedback("");
+    try {
+      await ApiService.submitFeedback({ message: feedback });
+      setMessage("Feedback submitted successfully!");
+      setFeedback("");
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      setMessage("Something went wrong.");
+    }
   };
 
   return (
@@ -17,10 +26,11 @@ const FeedbackPage = () => {
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           required
-        ></textarea>
+        />
         <br />
         <button type="submit">Submit</button>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 };

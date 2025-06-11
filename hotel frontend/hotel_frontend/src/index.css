@@ -1383,3 +1383,21 @@ button {
     }
   }
 }
+
+.feedback-section {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.feedback-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.feedback-section li {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 5px;
+}

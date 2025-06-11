@@ -11,6 +11,7 @@ import java.util.List;
 public class Response {
     private int statusCode;
     private String message;
+    private Object data;
 
     private String token;
     private String role;

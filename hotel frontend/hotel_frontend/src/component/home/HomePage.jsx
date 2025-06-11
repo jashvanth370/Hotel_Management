@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoomResult from "../common/RoomResult";
 import RoomSearch from "../common/RoomSearch";
+import ApiService from "../../service/ApiService";
 
 
 
@@ -8,6 +9,21 @@ import RoomSearch from "../common/RoomSearch";
 const HomePage = () => {
 
     const [roomSearchResults, setRoomSearchResults] = useState([]);
+
+    const [feedbackList, setFeedbackList] = useState([]);
+
+    useEffect(() => {
+        const fetchFeedback = async () => {
+            try {
+                const response = await ApiService.getAllFeedback();
+                console.log(response)
+                setFeedbackList(response.data);
+            } catch (error) {
+                console.error("Error loading feedback:", error);
+            }
+        };
+        fetchFeedback();
+    }, []);
 
     // Function to handle search results
     const handleSearchResult = (results) => {
@@ -70,8 +86,16 @@ const HomePage = () => {
 
             </section>
             {/* AVAILABLE ROOMS SECTION */}
-            <section>
-
+            <section className="feedback-section">
+                <h2>What our guests say</h2>
+                <ul>
+                    {feedbackList.map((item) => (
+                        <li key={item.id}>
+                            <p>{item.message}</p>
+                            <small>{new Date(item.createdAt).toLocaleString()}</small>
+                        </li>
+                    ))}
+                </ul>
             </section>
         </div>
     );
