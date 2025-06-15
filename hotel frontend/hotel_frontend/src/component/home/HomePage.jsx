@@ -87,15 +87,19 @@ const HomePage = () => {
             </section>
             {/* AVAILABLE ROOMS SECTION */}
             <section className="feedback-section">
-                <h2>What our guests say</h2>
-                <ul>
-                    {feedbackList.map((item) => (
-                        <li key={item.id}>
-                            <p>{item.message}</p>
-                            <small>{new Date(item.createdAt).toLocaleString()}</small>
-                        </li>
-                    ))}
-                </ul>
+                <h2 className="home-services">What our guests say</h2>
+                <div className="home-services">
+                    <ul>
+                        {feedbackList.map((item) => (
+
+                            <li key={item.id}>
+                                <p>{item.message}</p>
+                                <small>{new Date(item.createdAt).toLocaleString()}</small>
+                            </li>
+
+                        ))}
+                    </ul>
+                </div>
             </section>
         </div>
     );

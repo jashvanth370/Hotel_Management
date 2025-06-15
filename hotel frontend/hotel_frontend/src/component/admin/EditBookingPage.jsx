@@ -25,9 +25,6 @@ const EditBookingPage = () => {
 
 
     const acheiveBooking = async (bookingId) => {
-        // if (!window.confirm('Are you sure you want to Acheive this booking?')) {
-        //     return; // Do nothing if the user cancels
-        // }
         if (!window.confirm('Are you sure you want to achive this booking?')) return;
         try {
             await ApiService.archiveBooking(bookingId);
